@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div id="root"></div>
+    <!--(3) 삽입 위치 생성 -->
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script>
+    const root = document.getElementById("root"); // (3) 삽입 위치 생성
+    //const span = React.createElement("span"); // (1) span 태그 인지
+    const span = React.createElement(
+      "span",
+      { id: "good-span", style: { color: "red" } },
+      "Hello I'm a span"
+    ); // (4) span 성질 부여여
+    ReactDOM.render(span, root); // (2)React element를 원하는 위치에 생성해서 사용자에게 보여주는걸 의미
+  </script>
+</html>
