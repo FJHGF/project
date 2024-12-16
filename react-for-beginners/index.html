@@ -9,11 +9,33 @@
   <script>
     const root = document.getElementById("root"); // (3) 삽입 위치 생성
     //const span = React.createElement("span"); // (1) span 태그 인지
-    const span = React.createElement(
-      "span",
-      { id: "good-span", style: { color: "red" } },
+    let couter = 0;
+    const h3 = React.createElement(
+      //"span",
+      "h3", //(8) 태그 변경
+      //{ id: "good-span", style: { color: "red" } }, //(5) 확인 끝남
+      //null
+      {
+        id: "title", // (9) id 추가
+        onMouseEnter: () => console.log("mouse enter"), //(9) event 추가
+      },
       "Hello I'm a span"
-    ); // (4) span 성질 부여여
-    ReactDOM.render(span, root); // (2)React element를 원하는 위치에 생성해서 사용자에게 보여주는걸 의미
+    ); // (4) span 성질 부여
+    const btn = React.createElement(
+      "button",
+      // null,
+      {
+        style: {
+          backgroundColor: "tomato",
+        },
+        onClick: () => console.log("I'm Clicked"),
+      },
+      "Click me"
+    ); //(5) 이벤트 부여 : 요소 이름이 같을 필요없음(button -> btn)
+    const container = React.createElement("div", null, [h3, btn]); //(7) 2개 이상 넣고싶을 때
+
+    ReactDOM.render(container, root); //(7) 2개 이상 넣고싶을 때
+    //ReactDOM.render(btn, root); //(6) btn 넣어주기
+    //ReactDOM.render(span, root); // (2)React element를 원하는 위치에 생성해서 사용자에게 보여주는걸 의미
   </script>
 </html>
