@@ -8,24 +8,20 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    let counter = 0; //(1) [3.0] 데이터 담을 변수 생성
-    function countUp() {
-      counter = counter + 1;
-      render(); //(3) 리렌더링해주기
-    } // (2) [3.0] counter 증가 함수
+    // const counter = data[0]; // 2) 배열 접근 > 원하는 값 추출 후 변수 지정
 
-    // (3) [3.0] counter가 이벤트 작동하지만 1번만 랜더링이 되고있음 > UI 적용해야 함
-    function render() {
-      ReactDOM.render(<Container />, root); //(3) 리렌더링해주기
+    function App() {
+      //const data = React.useState(0); // 1)[3.1] 최적의 렌더링 방법
+      const [counter, modifier] = React.useState(0);
+      //console.log(data); // [undefined, f] > undefined = data, f는 data 변경 함수
+      return (
+        <div>
+          <h3>Total Clicks : {counter}</h3>
+          <button>Click me</button>
+        </div>
+      );
     }
-    const Container = () => (
-      <div>
-        <h3>Total Clicks : {counter}</h3>
-        <button onClick={countUp}>Click me</button>
-      </div>
-    ); // (1) [3.0] 필요없는 코드 제거 > 사용할 곳에 중괄호로 변수명 넣기 > (2)
 
-    //ReactDOM.render(<Container />, root);
-    render();
+    ReactDOM.render(<App />, root);
   </script>
 </html>
