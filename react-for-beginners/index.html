@@ -2,40 +2,30 @@
 <html lang="en">
   <body>
     <div id="root"></div>
-    <!--(3) 삽입 위치 생성 -->
   </body>
   <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-  <script>
-    const root = document.getElementById("root"); // (3) 삽입 위치 생성
-    //const span = React.createElement("span"); // (1) span 태그 인지
-    let couter = 0;
-    const h3 = React.createElement(
-      //"span",
-      "h3", //(8) 태그 변경
-      //{ id: "good-span", style: { color: "red" } }, //(5) 확인 끝남
-      //null
-      {
-        id: "title", // (9) id 추가
-        onMouseEnter: () => console.log("mouse enter"), //(9) event 추가
-      },
-      "Hello I'm a span"
-    ); // (4) span 성질 부여
-    const btn = React.createElement(
-      "button",
-      // null,
-      {
-        style: {
-          backgroundColor: "tomato",
-        },
-        onClick: () => console.log("I'm Clicked"),
-      },
-      "Click me"
-    ); //(5) 이벤트 부여 : 요소 이름이 같을 필요없음(button -> btn)
-    const container = React.createElement("div", null, [h3, btn]); //(7) 2개 이상 넣고싶을 때
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    let counter = 0; //(1) [3.0] 데이터 담을 변수 생성
+    function countUp() {
+      counter = counter + 1;
+      render(); //(3) 리렌더링해주기
+    } // (2) [3.0] counter 증가 함수
 
-    ReactDOM.render(container, root); //(7) 2개 이상 넣고싶을 때
-    //ReactDOM.render(btn, root); //(6) btn 넣어주기
-    //ReactDOM.render(span, root); // (2)React element를 원하는 위치에 생성해서 사용자에게 보여주는걸 의미
+    // (3) [3.0] counter가 이벤트 작동하지만 1번만 랜더링이 되고있음 > UI 적용해야 함
+    function render() {
+      ReactDOM.render(<Container />, root); //(3) 리렌더링해주기
+    }
+    const Container = () => (
+      <div>
+        <h3>Total Clicks : {counter}</h3>
+        <button onClick={countUp}>Click me</button>
+      </div>
+    ); // (1) [3.0] 필요없는 코드 제거 > 사용할 곳에 중괄호로 변수명 넣기 > (2)
+
+    //ReactDOM.render(<Container />, root);
+    render();
   </script>
 </html>
