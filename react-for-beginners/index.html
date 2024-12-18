@@ -8,17 +8,15 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    // const counter = data[0]; // 2) 배열 접근 > 원하는 값 추출 후 변수 지정
 
     function App() {
-      //const data = React.useState(0); // 1)[3.1] 최적의 렌더링 방법
       const [counter, setCounter] = React.useState(0);
-      //console.log(data); // [undefined, f] > undefined = data, f는 data 변경 함수
+
       const onClick = () => {
-        //counter = counter + 1;
-        //console.log(counter);
-        setCounter(counter + 1); // 3) [3.2] 리렌더링을 도와줄거임
+        setCounter(counter + 1);
       };
+      console.log("rendered");
+      console.log(counter); // state값이 바뀌면 리렌더링되는걸 확인함
       return (
         <div>
           <h3>Total Clicks : {counter}</h3>
