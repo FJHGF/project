@@ -8,17 +8,17 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     //function Btn(props) {
-    function Btn({ text, big }) {
-      console.log(big);
+    function Btn({ text, onClick }) {
+      console.log("render was ", text);
       return (
         <button
+          onClick={onClick}
           style={{
             backgroundColor: "tomato",
             color: "white",
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
-            fontSize: big ? 18 : 14,
           }}
         >
           {text}
@@ -28,12 +28,17 @@
     function ConfirmBtn() {
       return <button>Confirm</button>;
     }
+    const MemoraizedBtn = React.memo(Btn);
+    // [4.1] 리렌더링이 될 때 변경되지 않는 값을 리렌더링 시키지 않기 위해서
+    // 모든걸 리렌더링하면 어플리케이션이 느려질 수 있음
+
     function App() {
-      //Btn({text:"Save Changes"})
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <Btn text="Save Changes" big={true} />
-          <Btn text="Continue" big={false} />
+          <MemoraizedBtn text={value} onClick={changeValue} />
+          <MemoraizedBtn text="Continue" />
         </div>
       );
     }
