@@ -5,20 +5,21 @@
   </body>
   <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    //function Btn(props) {
-    function Btn({ text, onClick }) {
+    function Btn({ text, fontSize = 20 }) {
+      // 기본값 초기화도 가능
       console.log("render was ", text);
       return (
         <button
-          onClick={onClick}
           style={{
             backgroundColor: "tomato",
             color: "white",
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
+            fontSize, // 이름이 같아서 생략 가능
           }}
         >
           {text}
@@ -28,17 +29,16 @@
     function ConfirmBtn() {
       return <button>Confirm</button>;
     }
-    const MemoraizedBtn = React.memo(Btn);
-    // [4.1] 리렌더링이 될 때 변경되지 않는 값을 리렌더링 시키지 않기 위해서
-    // 모든걸 리렌더링하면 어플리케이션이 느려질 수 있음
-
+    Btn.propTypes = {
+      text: PropTypes.string,
+      fontSize: PropTypes.number,
+      //fontSize: PropTypes.number.isRequired, // 필수값 지정 가능
+    };
     function App() {
-      const [value, setValue] = React.useState("Save Changes");
-      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <MemoraizedBtn text={value} onClick={changeValue} />
-          <MemoraizedBtn text="Continue" />
+          <Btn text="Save Changes" fontSize={18} />
+          <Btn text={"Continue"} />
         </div>
       );
     }
