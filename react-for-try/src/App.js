@@ -1,46 +1,39 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-//import Button from "./Button";
-//import styles from "./App.module.css";
+function Hello() {
+  function byFn() {
+    console.log("bye");
+  }
+  function hiFn() {
+    console.log("I'm here!");
+    return byFn;
+  }
+  // 1 > 코드가 더 간결함
+  useEffect(() => {
+    console.log("hi");
+    return () => {
+      console.log("bye");
+    };
+  }, []);
+  //2
+  useEffect(function () {
+    console.log("hi!!");
+    return function () {
+      console.log("bye!!");
+    };
+  }, []);
+  useEffect(hiFn, []);
+  return <h1>Hello</h1>;
+}
 
 function App() {
-  const [counter, setValue] = useState(0);
-  const [keyword, serKeyword] = useState("");
-  const onClick = () => setValue((prev) => prev + 1); // prev : 이전 값
-  const onChange = (event) => serKeyword(event.target.value);
-  //console.log("i run all the time "); // 계속 rendering
-  useEffect(() => {
-    //console.log("CALL THE API...");
-    console.log("I run only once.");
-  }, []);
-  useEffect(() => {
-    //console.log(1);
-    /*
-    if (keyword !== "" && keyword.length > 5) {
-      console.log("SEARCH FOR ", keyword);
-    }
-    */
-    console.log("I run when 'keyword' changes.");
-  }, [keyword]);
-
-  useEffect(() => {
-    console.log("I run when 'counter' changes.");
-  }, [counter]);
-
-  useEffect(() => {
-    console.log("I run when 'keyword' or 'counter' changes.");
-  }, [keyword, counter]);
+  const [showing, setShowing] = useState(false);
+  const onClick = () => setShowing((prev) => !prev);
   return (
-    <div className="App">
-      <input
-        value={keyword}
-        onChange={onChange}
-        type="text"
-        placeholder="Search hear"
-      />
-      <h1>{counter}</h1>
-      <button onClick={onClick}>click me</button>
+    <div>
+      {showing ? <Hello /> : null}
+      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
     </div>
   );
 }
